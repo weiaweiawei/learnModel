@@ -35,7 +35,7 @@ test_loader = data_utils.DataLoader(dataset=test_data, batch_size=64, shuffle=Tr
 # print(test_loader)
 cnn = CNN()
 # 如果安装了显卡加速，可以放到cuda上运行，不然就在cpu上运行
-cnn = cnn.cuda()
+# cnn = cnn.cuda()
 
 
 #### 损失函数 ####
@@ -55,8 +55,8 @@ for epoch in range(10):
         # print(index)
         # print(images)
         # print(labels)
-        images = images.cuda()
-        labels = labels.cuda()
+        # images = images.cuda()
+        # labels = labels.cuda()
         ### 前向传播 ###
         output = cnn(images)
         ### 计算损失  传入输出层节点和真实标签来计算损失函数
@@ -79,8 +79,8 @@ for epoch in range(10):
     total_test_accuracy = 0
     # 分批取出在测试集上的数据
     for index,(images,labels) in enumerate(test_loader):
-        images = images.cuda()
-        labels = labels.cuda()
+        # images = images.cuda()
+        # labels = labels.cuda()
         output = cnn(images)
         loss = loss_function(output,labels)
         total_test_loss += loss.item()
@@ -101,6 +101,7 @@ for epoch in range(10):
 
     # break
 
+# 这里的保存 权重 还是保存模型 看个人选择吧
 torch.save(cnn,"model/mnist_model.pkl")
 
 # 单通道 手写数字识别的数据集有4个维度，分别是： h*w*c*n
